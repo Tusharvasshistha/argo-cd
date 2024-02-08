@@ -57,7 +57,7 @@ if ($clusterName -ne $currentCluster) {
 #Bootstrap-Component -componentName "argocd" -wait $true -namespace "argocd"
 #Bootstrap-Component -componentName "argocd-config"
 #Bootstrap-Component -componentName "gitops-connector"
-#Bootstrap-Component -componentName "self-manage"
-Bootstrap-Component -componentName "keda" -wait
+Bootstrap-Component -componentName "self-manage"
+#Bootstrap-Component -componentName "keda" -wait $true
 
 Write-Host "Cluster has been bootstrapped successfully!" -ForegroundColor Green

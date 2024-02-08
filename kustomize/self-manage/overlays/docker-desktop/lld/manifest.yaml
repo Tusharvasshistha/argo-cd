@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: Keda-install
+  namespace: argocd
+spec:
+  destination:
+    namespace: keda
+    server: https://kubernetes.default.svc
+  project: argocd
+  source:
+    path: kustomize/keda/overlays/docker-desktop
+    repoURL: https://github.com/Tusharvasshistha/argo-cd.git
+    targetRevision: refs/heads/main
+  syncPolicy:
+    syncOptions:
+    - FailOnSharedResource=true
+    - ApplyOutOfSyncOnly=true

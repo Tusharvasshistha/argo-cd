@@ -7,9 +7,9 @@ resources:
 patches:
 - target:
     kind: Application
-    name: Keda-install
+    name: keda
     namespace: argocd
   patch: |
     - op: replace
       path: /spec/source/path
-      value: kustomize/keda/overlays/docker-desktop
+      value: kustomize/keda/overlays/docker-desktop/lld/

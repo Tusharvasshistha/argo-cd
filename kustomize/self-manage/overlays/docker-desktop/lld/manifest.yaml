@@ -3,18 +3,22 @@ kind: Application
 metadata:
   finalizers:
   - resources-finalizer.argocd.argoproj.io
-  name: Keda-install
+  name: keda
   namespace: argocd
 spec:
   destination:
     namespace: keda
     server: https://kubernetes.default.svc
-  project: argocd
+  project: default
   source:
-    path: kustomize/keda/overlays/docker-desktop
+    path: kustomize/keda/overlays/docker-desktop/lld/
     repoURL: https://github.com/Tusharvasshistha/argo-cd.git
     targetRevision: refs/heads/main
   syncPolicy:
     syncOptions:
     - FailOnSharedResource=true
     - ApplyOutOfSyncOnly=true
+    - ServerSideApply=true
+    automated:
+      prune: true
+      selfHeal: true

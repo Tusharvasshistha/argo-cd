@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
 - namespace.yaml
-- dependencies/keda/v2.13.0/aw-install.yaml
+- dependencies/keda/v2.12.1/aw-install.yaml

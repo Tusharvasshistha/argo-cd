@@ -1,45 +1,28 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: keda
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io
-# spec:
-#   project: default
-#   source:
-#     repoURL: 'https://github.com/Tusharvasshistha/argo-cd.git'
-#     path: <PATH>
-#     targetRevision: HEAD
-#   destination:
-#     namespace: keda
-#     server: 'https://kubernetes.default.svc'
-#   syncPolicy:
-#     syncOptions:
-#     - FailOnSharedResource=true
-#     - ApplyOutOfSyncOnly=true
-#     - ServerSideApply=true
-#     - CreateNamespace=true
-#     automated:
-#       prune: true
-#       selfHeal: true
-# ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: keda
-  namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
+  name: keda
+  namespace: argocd
 spec:
+  ignoreDifferences:
+  - kind: Service
+    jsonPointers:
+    - /metadata/labels/app.kubernetes.io~1instance
+  - group: admissionregistration.k8s.io
+    kind: ValidatingWebhookConfiguration
+    name: keda-admission
+    jsonPointers:
+    - /metadata/labels/app.kubernetes.io~1instance
+  destination:
+    namespace: keda
+    server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: 'https://github.com/Tusharvasshistha/argo-cd.git'
     path: <PATH>
+    repoURL: https://github.com/Tusharvasshistha/argo-cd.git
     targetRevision: HEAD
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: keda
   syncPolicy:
     automated:
       selfHeal: true

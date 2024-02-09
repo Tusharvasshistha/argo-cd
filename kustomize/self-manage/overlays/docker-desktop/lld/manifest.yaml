@@ -11,14 +11,14 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: kustomize/keda/overlays/docker-desktop/lld/
+    path: kustomize/keda/overlays/docker-desktop
     repoURL: https://github.com/Tusharvasshistha/argo-cd.git
-    targetRevision: refs/heads/main
+    targetRevision: HEAD
   syncPolicy:
     automated:
-      prune: true
       selfHeal: true
     syncOptions:
     - FailOnSharedResource=true
     - ApplyOutOfSyncOnly=true
     - ServerSideApply=true
+    - CreateNamespace=true

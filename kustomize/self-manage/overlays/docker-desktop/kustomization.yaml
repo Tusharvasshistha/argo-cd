@@ -12,4 +12,4 @@ patches:
   patch: |
     - op: replace
       path: /spec/source/path
-      value: kustomize/keda/overlays/docker-desktop/lld/
+      value: kustomize/keda/overlays/docker-desktop

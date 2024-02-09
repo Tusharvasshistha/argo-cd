@@ -1,3 +1,29 @@
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: keda
+#   namespace: argocd
+#   finalizers:
+#   - resources-finalizer.argocd.argoproj.io
+# spec:
+#   project: default
+#   source:
+#     repoURL: 'https://github.com/Tusharvasshistha/argo-cd.git'
+#     path: <PATH>
+#     targetRevision: HEAD
+#   destination:
+#     namespace: keda
+#     server: 'https://kubernetes.default.svc'
+#   syncPolicy:
+#     syncOptions:
+#     - FailOnSharedResource=true
+#     - ApplyOutOfSyncOnly=true
+#     - ServerSideApply=true
+#     - CreateNamespace=true
+#     automated:
+#       prune: true
+#       selfHeal: true
+# ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,17 +34,17 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Tusharvasshistha/argo-cd.git
+    repoURL: 'https://github.com/Tusharvasshistha/argo-cd.git'
     path: <PATH>
-    targetRevision: refs/heads/main
+    targetRevision: HEAD
   destination:
+    server: 'https://kubernetes.default.svc'
     namespace: keda
-    server: https://kubernetes.default.svc
   syncPolicy:
+    automated:
+      selfHeal: true
     syncOptions:
     - FailOnSharedResource=true
     - ApplyOutOfSyncOnly=true
     - ServerSideApply=true
-    automated:
-      prune: true
-      selfHeal: true
+    - CreateNamespace=true

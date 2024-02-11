@@ -8,7 +8,7 @@ spec:
   - git:
       directories:
       - path: kustomize/*/*/overlays/docker-desktop
-      repoURL: https://github.com/Tusharvasshistha/argocd-components.git
+      repoURL: https://github.com/Tusharvasshistha/argo-cd.git
       revision: refs/heads/main
   template:
     metadata:
@@ -20,10 +20,10 @@ spec:
       destination:
         namespace: '{{path[1]}}'
         server: https://kubernetes.default.svc
-      project: default
+      project: system
       source:
         path: '{{path}}'
-        repoURL: https://github.com/Tusharvasshistha/argocd-components.git
+        repoURL: https://github.com/Tusharvasshistha/argo-cd.git
         targetRevision: refs/heads/main
       syncPolicy:
         syncOptions:

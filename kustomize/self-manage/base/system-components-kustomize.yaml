@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
   - git:
-      repoURL: https://github.com/Tusharvasshistha/argo-cd.git
+      repoURL: https://github.com/Tusharvasshistha/argocd-components.git
       revision: refs/heads/main
       directories:
       - path: '<PATH>' # kustomize/<NAMESPACE>/<APP>/overlays/<CLUSTER>
@@ -17,9 +17,9 @@ spec:
       finalizers:
       - resources-finalizer.argocd.argoproj.io
     spec:
-      project: system
+      project: default
       source:
-        repoURL: https://github.com/Tusharvasshistha/argo-cd.git
+        repoURL: https://github.com/Tusharvasshistha/argocd-components.git
         targetRevision: refs/heads/main
         path: '{{path}}'
       destination:

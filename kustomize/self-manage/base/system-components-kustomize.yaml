@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: system-components-kustomize
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/Tusharvasshistha/argo-cd.git
+      revision: refs/heads/main
+      directories:
+      - path: '<PATH>' # kustomize/<NAMESPACE>/<APP>/overlays/<CLUSTER>
+  template:
+    metadata:
+      name: '{{path[2]}}.syscomp'
+      namespace: argocd
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: system
+      source:
+        repoURL: https://github.com/Tusharvasshistha/argo-cd.git
+        targetRevision: refs/heads/main
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path[1]}}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true # Creates the destination namespace if it doesn't already exist
+        - FailOnSharedResource=true # Fails the sync if a resource is already applied by another Application
+        - ApplyOutOfSyncOnly=true # Syncs only resources that have changed for better performance (rather than default behaviour of syncing all resources)

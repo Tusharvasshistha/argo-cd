@@ -6,10 +6,10 @@ resources:
 
 patches:
 - target:
-    kind: Application
-    name: keda
+    kind: ApplicationSet
+    name: system-components-kustomize
     namespace: argocd
   patch: |
     - op: replace
-      path: /spec/source/path
-      value: kustomize/keda/overlays/docker-desktop
+      path: /spec/generators/0/git/directories/0/path
+      value: 'kustomize/*/*/overlays/docker-desktop'

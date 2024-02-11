@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-- keda-install.yaml
+- system-components-kustomize.yaml

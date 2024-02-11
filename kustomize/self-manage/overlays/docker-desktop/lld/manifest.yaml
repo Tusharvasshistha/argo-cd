@@ -20,7 +20,7 @@ spec:
       destination:
         namespace: '{{path[1]}}'
         server: https://kubernetes.default.svc
-      project: system
+      project: default
       source:
         path: '{{path}}'
         repoURL: https://github.com/Tusharvasshistha/argo-cd.git
